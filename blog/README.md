@@ -1,0 +1,3 @@
+- superadmin
+    - admin@email.com
+    - admin / admin
