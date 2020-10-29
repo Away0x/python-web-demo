@@ -5,10 +5,17 @@ url = "https://pypi.douban.com/simple"
 verify_ssl = true
 
 [dev-packages]
+coverage = "*"
 
 [packages]
 django = "==2.2.3"
 markdown = "*"
+faker = "*"
+django-pure-pagination = "*"
+djangorestframework = "*"
+django-filter = "*"
+drf-extensions = "*"
+drf-yasg = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,10 +1,13 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
+from rest_framework import mixins, viewsets
 
 from blog.models import Post
 
 from .forms import CommentForm
+from .models import Comment
+from .serializers import CommentSerializer
 
 
 @require_POST
@@ -43,3 +46,21 @@ def comment(request, post_pk):
     }
     messages.add_message(request, messages.ERROR, '评论发表失败！请修改表单中的错误后重新提交。', extra_tags='danger')
     return render(request, 'comments/preview.html', context=context)
+
+
+# ---------------------------------------------------------------------------
+#   Django REST framework 接口
+# ---------------------------------------------------------------------------
+
+
+class CommentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """
+    博客评论视图集
+    create:
+    创建博客评论
+    """
+
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):  # pragma: no cover
+        return Comment.objects.all()
